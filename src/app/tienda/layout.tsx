@@ -17,7 +17,7 @@ export default function TiendaLayout({
     return (
         <div>
             <ChakraProvider>
-            <Filter />
+                <Filter />
             </ChakraProvider>
             {children}
         </div>
