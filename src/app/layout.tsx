@@ -1,10 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import {Inter, Roboto} from 'next/font/google'
-import Navbar from "@/components/Navbar"
-import {ChakraProvider} from "@chakra-ui/react";
-import Navuser from "@/components/NavUsuario";
-
+import Navbar from "@/components/Navbar";
+import Navbaruser from "@/components/Navbaruser";
+import Filtro from "@/components/ProductFilter";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,6 +18,11 @@ const roboto = Roboto(
         subsets: ["latin"],
     }
 )
+
+function Chakraprovider() {
+    return null;
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -26,15 +30,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
+      <body className="bg-gray-100">
 
       <div className={roboto.className}>
-          <ChakraProvider>
-
-              <Navuser />
-          </ChakraProvider>
           <Navbar></Navbar>
-          <div className="my-10 mx-5">
+
+          <hr/>
+          <br/>
+          <div className="my-20 mx-5">
               {children}
           </div>
 

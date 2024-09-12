@@ -1,3 +1,4 @@
+
 import PostCard from "@/components/PostCard";
 
 async function loadPosts(){
@@ -11,7 +12,7 @@ async function PostsPages() {
     return (
         <div>
             {posts.map((post) =>(
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
                     {posts.map ((post) => (
                         <PostCard post={post} key={post.id} />
                         ))}

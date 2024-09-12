@@ -23,7 +23,8 @@ function ProductList() {
 
     return (
         <div>
-            <div className="grid grid-cols-2 xl:grid-cols-6 lg:grid-cols-4 gap-4">
+            <h1 className="text-3xl my-6 text-center bg-violet-700 py-4 text-white rounded-md">Productos</h1>
+            <div className="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-4">
                 {Array.isArray(products) &&
                     products.map((product) => (
                     <ProductCard product={product} key={product.id} />

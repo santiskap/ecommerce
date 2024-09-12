@@ -4,14 +4,15 @@ import React from "react";
 
 export default function PostCard({post}) {
     return (
-            <div className="bg-gray-100 p-4 rounded-md border-solid border-1 border-gray-300">
+            <div className="bg-white p-4 rounded-md">
             <Link href={`/posts/${post.id}`}>
-                <h1 className="text-blue-950 text-2xl pb-3 leading-tight"> {post.id}. {post.title}</h1>
+                {/*<h1 className="text-blue-950 text-2xl pb-3 leading-tight"> {post.id}. {post.title}</h1>*/}
+                <h1 className="text-blue-950 text-2xl pb-3 leading-tight capitalize"> {post.title}</h1>
             </Link>
-            <p className="text-gray-800">{post.body}</p>
-            <button className="items-end mt-4 text-white bg-blue-400 px-3 py-1 rounded-md" onClick={() => {
-                alert ("Funciona")
-            }}>click</button>
+            <p className="text-gray-800 capitalize">{post.body}</p>
+            <button className="mt-4 text-white bg-violet-600 px-3 py-1 rounded-md cursor-pointer" onClick={() => {
+                alert ("Este es un botón funcional")
+            }}>Leer</button>
             </div>
     )
 }
