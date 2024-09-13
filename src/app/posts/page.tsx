@@ -1,37 +1,32 @@
-import { GetStaticProps } from 'next';
+
 import PostCard from "@/components/PostCard";
+import { Key } from "react";
 
-// Define un tipo para un post
+// Define la interfaz para los posts
 interface Post {
-  id: number;
-  title: string;
-  body: string;
+    id: number;
+    title: string;
+    body: string;
 }
 
-// Define las props que pasas al componente
-interface PostsPagesProps {
-  posts: Post[];
+// Función para cargar los posts
+async function loadPosts(): Promise<Post[]> {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await res.json();
+    return data;
 }
 
-export const getStaticProps: GetStaticProps<PostsPagesProps> = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
-  const data = await res.json();
-  
-  return {
-    props: {
-      posts: data,
-    },
-  };
-};
+// Componente para mostrar los posts
+async function PostsPages() {
+    const posts: Post[] = await loadPosts();
 
-const PostsPages = ({ posts }: PostsPagesProps) => {
-  return (
-    <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-      {posts.map((post) => (
-        <PostCard post={post} key={post.id} />
-      ))}
-    </div>
-  );
-};
+    return (
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+            {posts.map((post: { id: Key | null | undefined; }) => (
+                <PostCard post={post} key={post.id} />
+            ))}
+        </div>
+    );
+}
 
 export default PostsPages;

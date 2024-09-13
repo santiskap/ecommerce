@@ -14,8 +14,7 @@ interface Producto {
 // Define un tipo para la respuesta de la API
 interface ApiResponse {
   products: Producto[];
-  // Puedes agregar otros campos aquí si la API devuelve más datos
-  total: number; // Ejemplo de otro campo que podría estar presente
+  total: number; 
 }
 
 function ProductList() {
