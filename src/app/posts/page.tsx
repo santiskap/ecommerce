@@ -1,6 +1,6 @@
 import PostCard from "@/components/PostCard";
 
-// Define la interfaz para los posts
+// Aca define la interfaz en Ts para los posts
 interface Post {
     id: number;
     title: string;

@@ -2,8 +2,19 @@
 import React, { useState, useEffect } from 'react';
 import ProductCard from "@/components/ProductCard";
 
+// Define el tipo para el producto con las propiedades correctas
+interface ApiProduct {
+    id: string; // Cambiado a string según el error
+    title: string;
+    price: number;
+    thumbnail: string;
+    description: string;
+    // Agrega más propiedades si es necesario
+}
+
 function ProductList() {
-    const [products, setProducts] = useState([]);
+    // Usa el tipo ApiProduct para el estado de products
+    const [products, setProducts] = useState<ApiProduct[]>([]);
 
     useEffect(() => {
         fetch('https://dummyjson.com/products')
@@ -27,8 +38,7 @@ function ProductList() {
             <div className="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-4">
                 {Array.isArray(products) &&
                     products.map((product) => (
-                    <ProductCard product={product} key={product.id} />
-
+                        <ProductCard product={product} key={product.id} />
                     ))}
             </div>
         </div>
