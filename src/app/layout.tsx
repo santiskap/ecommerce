@@ -1,9 +1,8 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import {Inter, Roboto} from 'next/font/google'
-import Navbar from "@/components/Navbar";
 
-const inter = Inter({ subsets: ['latin'] })
+import {Roboto} from 'next/font/google'
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: 'Proyecto en Next',

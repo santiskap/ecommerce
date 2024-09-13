@@ -1,6 +1,4 @@
-
 import PostCard from "@/components/PostCard";
-import { Key } from "react";
 
 // Define la interfaz para los posts
 interface Post {
@@ -22,7 +20,7 @@ async function PostsPages() {
 
     return (
         <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
-            {posts.map((post: { id: Key | null | undefined; }) => (
+            {posts.map((post: Post) => (
                 <PostCard post={post} key={post.id} />
             ))}
         </div>

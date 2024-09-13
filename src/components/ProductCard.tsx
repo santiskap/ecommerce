@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from 'next/image';
 
 interface Product {
   id: string;
@@ -16,11 +17,13 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="bg-white p-4 rounded-md">
-      
-      <img
-        className="rounded-md aspect-video mb-4"
+      <Image
+        className="rounded-md mb-4"
         src={product.thumbnail}
         alt={product.title}
+        layout="responsive" // Usar "responsive" o "intrinsic" según lo necesites
+        width={500} // Debes proporcionar width y height para el componente Image
+        height={300} // Ajusta el tamaño según tus necesidades
       />
       <h1 className="text-violet-950 text-2xl pb-3 leading-tight hover:text-purple-700">
         <Link href={`/tienda/${product.id}`}>{product.title}</Link>
