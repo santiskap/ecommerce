@@ -1,3 +1,4 @@
+import React from 'react';
 import PostCard from "@/components/PostCard";
 
 // Aca define la interfaz en Ts para los posts

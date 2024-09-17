@@ -1,3 +1,4 @@
+import React from 'react';
 // Definir la interfaz para los parámetros de la página
 interface PageParams {
     postId: string;

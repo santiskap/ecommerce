@@ -1,4 +1,5 @@
 import './globals.css';
+import React from 'react';
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import Navbar from '@/components/Navbar';

@@ -3,14 +3,14 @@ import Link from "next/link";
 import React from "react";
 
 // Define la interfaz para el tipo del post
-interface Post {
+interface Posteo {
   id: number;
   title: string;
   body: string;
 }
 
 // Usa la interfaz para el tipo del prop
-export default function PostCard({ post }: { post: Post }) {
+export default function PostCard({ post }: { post: Posteo }) {
     return (
         <div className="bg-white p-4 rounded-md">
             <Link href={`/posts/${post.id}`}>

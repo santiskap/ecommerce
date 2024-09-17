@@ -1,48 +1,78 @@
 "use client";
-import React, { useState, useEffect } from 'react';
-import ProductCard from "@/components/ProductCard";
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
 
-// Define el tipo para el producto con las propiedades correctas
-interface ApiProduct {
-    id: string; // Cambiado a string según el error
-    title: string;
-    price: number;
-    thumbnail: string;
-    description: string;
-    // Agrega más propiedades si es necesario
+interface Product {
+  id: number;
+  title: string;
+  description: string;
+  price: number;
+  thumbnail: string;
 }
 
-function ProductList() {
-    // Usa el tipo ApiProduct para el estado de products
-    const [products, setProducts] = useState<ApiProduct[]>([]);
-
-    useEffect(() => {
-        fetch('https://dummyjson.com/products')
-            .then((response) => response.json())
-            .then((data) => {
-                // Comprueba si la respuesta es un objeto con propiedades de productos
-                if (data && data.products && Array.isArray(data.products)) {
-                    setProducts(data.products);
-                } else {
-                    console.error('La respuesta de la API no contiene un arreglo de productos:', data);
-                }
-            })
-            .catch((error) => {
-                console.error('Error al obtener los datos:', error);
-            });
-    }, []);
-
-    return (
-        <div>
-            <h1 className="text-3xl my-6 text-center bg-violet-700 py-4 text-white rounded-md">Productos</h1>
-            <div className="grid sm:grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 gap-4">
-                {Array.isArray(products) &&
-                    products.map((product) => (
-                        <ProductCard product={product} key={product.id} />
-                    ))}
-            </div>
-        </div>
-    );
+async function loadProd(id: number): Promise<Product | null> {
+  try {
+    const res = await fetch(`https://dummyjson.com/products/${id}`);
+    if (!res.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await res.json();
+    return data;
+  } catch (fetchIssue) {
+    console.error('Issue fetching product:', fetchIssue);
+    return null;
+  }
 }
 
-export default ProductList;
+interface PaginaProductoProps {
+  params: { tiendaId: number };
+}
+
+const PaginaProducto: React.FC<PaginaProductoProps> = ({ params }) => {
+  const [product, setProduct] = useState<Product | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [fetchIssue, setFetchIssue] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchProduct() {
+      try {
+        const data = await loadProd(params.tiendaId);
+        if (data) {
+          setProduct(data);
+        } else {
+          setFetchIssue('Product not found');
+        }
+      } catch {
+        setFetchIssue('Problem loading product');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProduct();
+  }, [params.tiendaId]);
+
+  if (loading) return <p>Loading...</p>;
+  if (fetchIssue) return <p>{fetchIssue}</p>;
+  if (!product) return <p>No product data available</p>;
+
+  return (
+    <div className="flex items-center justify-center w-3/5 mx-auto min-h-screen space-x-8">
+      <Image className="rounded-md" src={product.thumbnail} alt={product.title} width={500} height={300} />
+      <div className="flex flex-col items-start mt-10">
+        <h1 className="text-2xl my-4 px-4 py-2 bg-gray-800 text-white rounded-md capitalize">
+          {product.title}
+        </h1>
+        <p className="text-gray-800 text-sm w-10/12">{product.description}</p>
+        <p className="text-3xl text mt-4 text-violet-700 bg-gray-200 rounded-md p-2 px-4 inline-block float-left">
+          ${product.price}
+        </p>
+        <button className="mt-4 text-white bg-violet-900 hover:bg-green-600 px-10 py-3 text-base rounded-md">
+          Comprar
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default PaginaProducto;
